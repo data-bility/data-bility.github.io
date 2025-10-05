@@ -109,8 +109,8 @@ $$
   - 길이 $T$를 segment size $s$로 나눠 구간 $g$마다
     $$
     \alpha_g=\frac{\{t\in g: y_t>0\}}{|g|},\qquad
-    \text{transfer\_ratio}_g = 1-\alpha_g
-    $$
+    \text{transfer_ratio}_g = 1-\alpha_g
+    $$<br>
     (구간이 정상일수 비중이 낮을수록 전이 비율이 높아지게끔 모델링)
 3. **예측값 전이(이월)**
   - 품절일의 $pred_t$를 해당 구간의 **transfer\_ratio**만큼 **다음 정상일**로 이월하고, 정상일의 $pred$는 누적시킵니다.
@@ -122,7 +122,7 @@ $$
   - 후보 $s \in \{1,\dots,S_{\max}\}$에 대해
     $$
     \text{ratio}(s)=\frac{\text{DTW}\bigl(pred_{\text{corrected\_full}}[y>0],\,y[y>0]\bigr)}{\text{DTW}\bigl(pred[y>0],\,y[y>0]\bigr)}
-    $$
+    $$<br>
     를 계산하고, $\text{ratio}(s)\le \tau$ (예: $\tau=1.10$)를 만족하면서 **가장 개선 효과가 큰** $s^*$를 선택.
 
 > 응용 의도
@@ -256,7 +256,7 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
 
 ## 5.6 작업에 대한 회고
 우선, 이 방법은 기본적으로 다음 문제 상황을 조금이나마 완화하기 위함이지 예측 성능이 개선되는 방식은 아님에 주의해야합니다. 
-> 품절발생! -> 잠재 수요 반영 불가 -> 체계적 과소예측 + 품절 이후 발주일에 정작 더 낮은 예측값을 활용한다 
+> 품절발생! → 잠재 수요 반영 불가 → 체계적 과소예측이 발생한다 → 품절 이후 발주일에 정작 더 낮은 예측값을 활용하게 된다. 
 
 따라서, 다음과 같은 한계점이 분명히 존재했습니다.
 
