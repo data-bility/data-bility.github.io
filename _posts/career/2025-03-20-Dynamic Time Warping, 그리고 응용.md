@@ -1,6 +1,6 @@
 ---
 title: Dynamic Time Warping, 그리고 응용
-date: 2025-10-05 00:00:00 +09:00
+date: 2025-03-20 00:00:00 +09:00
 categories: [career]
 math: true
 ---
@@ -234,10 +234,8 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
 
 #### (B) Compressed (segment_size = 7)
 - 품절일을 제거하고 구간별 전이 비율을 적용한 결과입니다.
-- `segment_size=7` 기준으로 구간별 정상일 비율(α)을 계산하여  
-  품절 영향이 큰 구간일수록 예측 이월 비율(transfer_ratio)이 커집니다.
-- `y_compressed`와 `pred_compressed`가 구조적으로 더 유사해져  
-  DTW 정렬 경로가 한층 안정화됩니다.
+- `segment_size=7` 기준으로 구간별 정상일 비율(α)을 계산하여 품절 영향이 큰 구간일수록 예측 이월 비율(transfer_ratio)이 커집니다.
+- `y_compressed`와 `pred_compressed`가 구조적으로 더 유사해져 DTW 정렬 경로가 한층 안정화됩니다.
 
 #### (C) Corrected pred (full timeline) vs. original y
 - **빨간색 (`pred_corrected_full`)**: 품절 구간은 0으로 두되, 이월된 예측을 반영한 시계열.
@@ -290,48 +288,3 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
 - 보정 후에는 반드시 **DTW + MAE + MAPE + under_rate/over_rate** 등을 함께 모니터링해야 합니다.
 - DTW 개선만으로는 실제 모델의 “정확도 개선”을 단정하기 어렵습니다.
 - 특히 **실제 발주량/재고량 시뮬레이션 기반 평가**와 함께 검증해야 보정이 실질적인 효용을 가지는지 판단할 수 있습니다.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
