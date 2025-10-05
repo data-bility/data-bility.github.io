@@ -224,7 +224,7 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
 ~~~
 
 ## 5.5 시각화 예시
-<img src="/assets/img/dtw example.png" width="900px" height="720px" alt="dtw example"></img>
+<img src="/assets/img/dtw example.png" width="900px" height="720px" alt="dtw example">
 
 위 그림은 DTW 기반 보정 절차의 전 과정을 시각화한 예시입니다.<br>
 #### (A) Original y vs. pred
