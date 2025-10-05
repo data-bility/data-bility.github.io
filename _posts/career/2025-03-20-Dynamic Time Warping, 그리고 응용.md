@@ -4,7 +4,7 @@ date: 2025-03-20 00:00:00 +09:00
 categories: [career]
 math: true
 ---
-
+# Dynamic Time Warping, 그리고 응용
 ## 1. 기본 개념
 > 두 시계열 데이터의 **비선형적 시간왜곡**(non-linear time distortion)을 허용하면서 **유사도를 측정하는 알고리즘**입니다.  
 즉, 단순히 시점이 일치하지 않더라도 형태(패턴)가 비슷한 시계열끼리의 거리를 계산할 수 있습니다.
@@ -229,22 +229,22 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
 <img src="/assets/img/dtw example.png" width="900px" height="720px" alt="dtw example">
 
 위 그림은 DTW 기반 보정 절차의 전 과정을 시각화한 예시입니다.<br>
-##### (A) Original y vs. pred
+(A) Original y vs. pred
 - **파란색 (`y`)**: 실제 판매량(실측 수요). 품절일에는 0으로 급락.
 - **주황색 (`pred`)**: 모델 예측값으로, 품절 구간에서도 예측이 유지되어 과소예측 형태 발생.
 - 두 시계열의 형태는 비슷하지만 **시간축 정렬이 어긋나 DTW 거리**가 큽니다.
 
-##### (B) Compressed (segment_size = 7)
+(B) Compressed (segment_size = 7)
 - 품절일을 제거하고 구간별 전이 비율을 적용한 결과입니다.
 - `segment_size=7` 기준으로 구간별 정상일 비율(α)을 계산하여 품절 영향이 큰 구간일수록 예측 이월 비율(transfer_ratio)이 커집니다.
 - `y_compressed`와 `pred_compressed`가 구조적으로 더 유사해져 DTW 정렬 경로가 한층 안정화됩니다.
 
-##### (C) Corrected pred (full timeline) vs. original y
+(C) Corrected pred (full timeline) vs. original y
 - **빨간색 (`pred_corrected_full`)**: 품절 구간은 0으로 두되, 이월된 예측을 반영한 시계열.
 - **보라색 점선**: 정상일 기준으로 이월된 예측이 실제 판매량의 흐름과 더 잘 정렬됨을 보여줌.
 - **파란 점선 (`pred_before`)**: 보정 전 예측이며, 형태적으로 더 불안정합니다.
 
-##### (D) 수치 요약
+(D) 수치 요약
 
 | 항목 | 값 |
 |------|------|
@@ -262,7 +262,7 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
 
 따라서, 다음과 같은 한계점이 분명히 존재했습니다.
 
-##### (1) 품절일의 **잠재 수요(latent demand)** 반영 한계
+(1) 품절일의 **잠재 수요(latent demand)** 반영 한계
 - 품절일(`oper_cnt=0`)은 판매량이 0으로 관측되지만, 실제로는 **판매할 재고가 없었던 상태**입니다.
 - 즉, 해당 시점의 `y=0`은 “수요가 없었다”가 아니라 **“공급이 제한되어 관측되지 않은 수요가 존재했다”**는 의미입니다.
 - 보정 과정에서 이를 단순히 이월(transfer)시키는 것은,
@@ -272,21 +272,21 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
   중 후자를 **정확히 추정하지 못한 채 형태적으로만 보정하는 것**에 그칠 수 있습니다.
 - 따라서 DTW 보정은 **패턴 일치도 개선용(Feature Engineering)** 으로는 유효하지만, **예측 성능 지표 개선**을 직접적으로 보장하지는 않습니다.
 
-##### (2) 보정 후 시계열의 **스케일 왜곡(scale distortion)**
+(2) 보정 후 시계열의 **스케일 왜곡(scale distortion)**
 - `transfer_ratio`에 따라 특정 구간의 예측값이 과도하게 이월되면, 국소적으로 예측치가 “부풀려진(high bias)” 상태가 됩니다.
 - 이는 RMSE나 MAE 관점에서 **일부 구간의 과대 예측(over-prediction)** 으로 작용할 수 있습니다.
 - 특히 품절 구간이 길거나 연속된 경우, 이월 비율이 누적되면서 **총합(sum) 기준의 오차**가 커질 수 있습니다.
 
-##### (3) DTW 거리 개선 != 실제 오차 개선
+(3) DTW 거리 개선 != 실제 오차 개선
 - DTW는 시점 간 **위상(warping)** 을 허용하므로, 일정 부분의 “시간 어긋남”을 보정한 것만으로도 거리 값이 개선될 수 있습니다.
 - 그러나 실제 비즈니스 관점(예: 일자별 예측 정확도, 재고 계획)은 **시간 정렬 오차** 자체가 중요하기 때문에, DTW 상의 개선이 반드시 예측 품질 향상을 의미하지는 않습니다.
 - 즉, DTW는 “형태적으로 비슷하다”를 보장할 뿐 “언제 얼마가 팔릴지를 맞췄다”를 보장하지 않습니다.
 
-##### (4) **과보정(Over-correction)** 위험
+(4) **과보정(Over-correction)** 위험
 - segment_size, threshold_ratio(τ) 등의 설정을 너무 느슨하게 두면, DTW 기준으로는 개선된 듯 보여도 **실제 데이터 분포가 왜곡**될 수 있습니다.
 - 예를 들어, 품절이 잦은 SKU의 경우 이월 비율이 높아져 전체 예측 시계열이 **평탄화(flatten)** 되거나 **시계열 간 동조화(synchronization)** 가 과도하게 일어날 수 있습니다.
 
-##### (5) **평가 지표의 다면적 해석 필요**
+(5) **평가 지표의 다면적 해석 필요**
 - 보정 후에는 반드시 **DTW + MAE + MAPE + under_rate/over_rate** 등을 함께 모니터링해야 합니다.
 - DTW 개선만으로는 실제 모델의 “정확도 개선”을 단정하기 어렵습니다.
 - 특히 **실제 발주량/재고량 시뮬레이션 기반 평가**와 함께 검증해야 보정이 실질적인 효용을 가지는지 판단할 수 있습니다.
