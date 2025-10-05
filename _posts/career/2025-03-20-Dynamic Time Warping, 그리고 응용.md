@@ -4,7 +4,8 @@ date: 2025-03-20 00:00:00 +09:00
 categories: [career]
 math: true
 ---
-# Dynamic Time Warping, 그리고 응용
+
+
 ## 1. 기본 개념
 > 두 시계열 데이터의 **비선형적 시간왜곡**(non-linear time distortion)을 허용하면서 **유사도를 측정하는 알고리즘**입니다.  
 즉, 단순히 시점이 일치하지 않더라도 형태(패턴)가 비슷한 시계열끼리의 거리를 계산할 수 있습니다.
