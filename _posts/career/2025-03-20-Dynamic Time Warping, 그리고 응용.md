@@ -2,6 +2,7 @@
 title: Dynamic Time Warping, 그리고 응용
 date: 2025-03-20 00:00:00 +09:00
 categories: [career]
+math: true
 ---
 # DTW(Dynamic Time Warping)이란
 ## 1. 기본 개념
