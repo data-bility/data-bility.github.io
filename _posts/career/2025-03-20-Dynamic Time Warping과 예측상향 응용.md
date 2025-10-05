@@ -1,10 +1,9 @@
 ---
-title: Dynamic Time Warping, 그리고 응용
+title: Dynamic Time Warping과 예측상향 응용
 date: 2025-03-20 00:00:00 +09:00
 categories: [career]
 math: true
 ---
-
 
 ## 1. 기본 개념
 > 두 시계열 데이터의 **비선형적 시간왜곡**(non-linear time distortion)을 허용하면서 **유사도를 측정하는 알고리즘**입니다.  
@@ -109,26 +108,26 @@ $$
 
 ### 5.2 절차
 1. **품절 정의 및 압축**
-  - 원본 $y$에서 품절과 관련된 피쳐가 특정 값인 날을 **품절 발생일자**로 정의하고 제거합니다 : $y_{\text{compressed}}$.
+- 원본 $y$에서 품절과 관련된 피쳐가 특정 값인 날을 **품절 발생일자**로 정의하고 제거합니다 : $y_{\text{compressed}}$.
 2. **구간별 전이 비율 계산**
-  - 길이 $T$를 segment size $s$로 나눠 구간 $g$마다
-    $$
-    \alpha_g=\frac{\{t\in g: y_t>0\}}{|g|},\qquad
-    \text{transfer_ratio}_g = 1-\alpha_g
-    $$<br>
-    (구간이 정상일수 비중이 낮을수록 전이 비율이 높아지게끔 모델링)
+- 길이 $T$를 segment size $s$로 나눠 구간 $g$마다
+  $$
+  \alpha_g=\frac{\{t\in g: y_t>0\}}{|g|},\qquad
+  \text{transfer_ratio}_g = 1-\alpha_g
+  $$<br>
+  (구간이 정상일수 비중이 낮을수록 전이 비율이 높아지게끔 모델링)
 3. **예측값 전이(이월)**
-  - 품절일의 $pred_t$를 해당 구간의 **transfer\_ratio**만큼 **다음 정상일**로 이월하고, 정상일의 $pred$는 누적시킵니다.
-  - 결과: $pred_{\text{compressed}}$ (길이는 $y_{\text{compressed}}$와 동일해집니다.)
+- 품절일의 $pred_t$를 해당 구간의 **transfer\_ratio**만큼 **다음 정상일**로 이월하고, 정상일의 $pred$는 누적시킵니다.
+- 결과: $pred_{\text{compressed}}$ (길이는 $y_{\text{compressed}}$와 동일해집니다.)
 4. **원래 길이로 복원**
-  - $pred_{\text{compressed}}$를 원본 타임라인으로 되돌려 $pred_{\text{corrected_full}}$ 생성(품절일은 0 처리).
+- $pred_{\text{compressed}}$를 원본 타임라인으로 되돌려 $pred_{\text{corrected_full}}$ 생성(품절일은 0 처리).
 5. **DTW 기반 선택**
-  - 기준값: $\text{DTW}(pred[y>0],\, y[y>0])$ (보정 전).
-  - 후보 $s \in \{1,\dots,S_{\max}\}$에 대해
-    $$
-    \text{ratio}(s)=\frac{\text{DTW}\bigl(pred_{\text{corrected\_full}}[y>0],\,y[y>0]\bigr)}{\text{DTW}\bigl(pred[y>0],\,y[y>0]\bigr)}
-    $$<br>
-    를 계산하고, $\text{ratio}(s)\le \tau$ (예: $\tau=1.10$)를 만족하면서 **가장 개선 효과가 큰** $s^*$를 선택.
+- 기준값: $\text{DTW}(pred[y>0],\, y[y>0])$ (보정 전).
+- 후보 $s \in \{1,\dots,S_{\max}\}$에 대해
+  $$
+  \text{ratio}(s)=\frac{\text{DTW}\bigl(pred_{\text{corrected\_full}}[y>0],\,y[y>0]\bigr)}{\text{DTW}\bigl(pred[y>0],\,y[y>0]\bigr)}
+  $$<br>
+  를 계산하고, $\text{ratio}(s)\le \tau$ (예: $\tau=1.10$)를 만족하면서 **가장 개선 효과가 큰** $s^*$를 선택.
 
 > 응용 의도
 > - DTW는 시간 늘어짐/당김을 허용하므로, 보정된 예측이 정상일 수요와 **형태적으로 더 비슷**해지면 $\text{DTW}$가 개선됩니다.
@@ -258,8 +257,8 @@ def build_corrected_pred_full(y, nz_idx, pred_c):
 <br>
 
 ### 5.6 작업에 대한 회고
-우선, 이 방법은 기본적으로 다음 문제 상황을 조금이나마 완화하기 위함이지 예측 성능이 개선되는 방식은 아님에 주의해야합니다. 
-> 품절발생! → 잠재 수요 반영 불가 → 체계적 과소예측이 발생한다 → 품절 이후 발주일에 정작 더 낮은 예측값을 활용하게 된다. 
+우선, 이 방법은 기본적으로 다음 문제 상황을 조금이나마 완화하기 위함이지 예측 성능이 개선되는 방식은 아님에 주의해야합니다.
+> 품절발생! → 잠재 수요 반영 불가 → 체계적 과소예측이 발생한다 → 품절 이후 발주일에 정작 더 낮은 예측값을 활용하게 된다.
 
 따라서, 다음과 같은 한계점이 분명히 존재했습니다.
 
