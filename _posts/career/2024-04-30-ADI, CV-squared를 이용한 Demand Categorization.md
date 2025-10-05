@@ -6,9 +6,9 @@ math: true
 ---
 
 ## 1. 기본 개념
-> 점포/SKU 단위의 수요예측에서는, **수요 데이터의 발생 패턴**을 구분하여 적합한 모델을 적용하는 것이 예측성능의 관점에서 유리할 수 있습니다.<br>
-특히 **간헐적(intermittent)** 또는 **불규칙(irregular)** 수요를 포함하는 경우, SKU별로 모델링 전략이 달라져야 합니다.  
-이를 위해 대표적인 통계적 분류 기준으로 **ADI(Average Demand Interval)** 과 **CV²(Coefficient of Variation Squared)** 를 사용합니다.
+> - 점포/SKU 단위의 수요예측에서는, **수요 데이터의 발생 패턴**을 구분하여 적합한 모델을 적용하는 것이 예측성능의 관점에서 유리할 수 있습니다.<br>
+> - 특히 **간헐적(intermittent)** 또는 **불규칙(irregular)** 수요를 포함하는 경우, SKU별로 모델링 전략이 달라져야 합니다.  
+> - 이를 위해 대표적인 통계적 분류 기준으로 **ADI(Average Demand Interval)** 과 **CV²(Coefficient of Variation Squared)** 를 사용합니다.
 
 ### 1.1 ADI(Average Demand Interval) 
 
