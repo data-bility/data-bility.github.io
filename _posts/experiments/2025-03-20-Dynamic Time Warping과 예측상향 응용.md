@@ -1,7 +1,7 @@
 ---
 title: Dynamic Time Warping과 예측상향 응용
 date: 2025-03-20 00:00:00 +09:00
-categories: [career]
+categories: [experiments]
 math: true
 ---
 
