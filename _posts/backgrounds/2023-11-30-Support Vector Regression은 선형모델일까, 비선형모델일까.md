@@ -56,7 +56,7 @@ y_i - \mathbf{w}^\top \mathbf{x}_i - b \le \varepsilon + \xi_i \\
 \end{cases}
 $$
 
-즉, $ \epsilon$ 영역 내의 오차는 용인하면서도, 전체적인 평면 $ \mathbf{w}^\top \mathbf{x} + b 를 가능한 한 평평하게 유지하도록 합니다.
+즉, $ \epsilon$ 영역 내의 오차는 용인하면서도, 전체적인 평면 $ \mathbf{w}^\top \mathbf{x} + b $ 를 가능한 한 평평하게 유지하도록 합니다.
 
 이때까진 명백히 **선형모델**입니다.
 
