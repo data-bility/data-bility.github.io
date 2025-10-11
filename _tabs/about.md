@@ -4,7 +4,8 @@ icon: fas fa-info-circle
 order: 4
 ---
 # Dae-Hyun Jin
-> 데이터를 이롭게 쓰는 방법을, 널리 알려 다같이 잘 쓰는 것에 관심이 있습니다.
+> - 수요예측 분야의 데이터 과학을 다루는 블로그를 운영중입니다.
+
 
 * Current job : ML Engineer & Developer Relations at SSG.COM
   * SSG.COM 자동화센터 및 PP센터를 위한 수요예측 모델을 운영하고, 개발합니다.

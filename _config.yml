@@ -16,10 +16,10 @@ timezone: Asia/Seoul
 
 title: Data-bility Blog
 
-tagline: 데이터를 다루는 능력을 키우는 블로그
+tagline: 데이터를 잘 다루는 능력!
 
 description: >- # used by seo meta and the atom feed
-  Data science, 그리고 Developer Relations에 대해 다룹니다
+  수요예측 분야의 데이터 과학을 다룹니다.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
