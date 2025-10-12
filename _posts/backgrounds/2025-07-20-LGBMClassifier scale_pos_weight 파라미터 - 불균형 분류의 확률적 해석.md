@@ -21,7 +21,7 @@ math: true
 
 LightGBM/XGBoost 류의 그래디언트 부스팅은 각 데이터 포인트의 손실 기여도를 가중합으로 최적화합니다. 
 
-양성 샘플에 가중치 $w_+$ 를 주면, 손실은 대략 다음과 같이 표현됩니다. :
+양성 샘플에 가중치 $ w_+ $ 를 주면, 손실은 대략 다음과 같이 표현됩니다. :
 
 $$
 \mathcal{L} = \sum_{i \in \text{neg}} \ell_i + \sum_{j \in \text{pos}} w_+ \cdot \ell_j
