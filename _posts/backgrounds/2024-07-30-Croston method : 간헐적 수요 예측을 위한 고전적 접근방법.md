@@ -1,5 +1,5 @@
 ---
-title: Croston Method — 간헐적 수요 예측을 위한 고전적 접근방법
+title: Croston Method - 간헐적 수요 예측을 위한 고전적 접근방법
 date: 2024-07-30 00:00:00 +09:00
 categories: [backgrounds]
 math: true
