@@ -1,5 +1,5 @@
 ---
-title: 자동화물류센터 수요예측 고도화 - Poisson XGB, TFT 모델 
+title: 자동화물류센터 수요예측 고도화 프로젝트 - Poisson XGB, TFT 모델 도입
 date: 2025-04-20 00:00:00 +09:00
 categories: [experiments]
 math: true
