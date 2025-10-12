@@ -74,7 +74,6 @@ TFT는 기존 시계열 모델(LSTM, XGBoost 등)과 비교했을 때 **특히 �
 |--------|------|-----------------------------------------|
 | `TimeSeriesDataSet` | 입력데이터 구성 | 과거(encoder) 구간과 미래(decoder) 구간을 자동으로 분리 |
 | `TemporalFusionTransformer` | 핵심 모델 | LSTM + Attention 기반 멀티히라이즌 예측 모델        |
-| `Baseline` | 비교 모델 | 단순 평균, 중앙값 등으로 baseline 성능 확인용          |
 
 
 ### 4.1 데이터 구성 — `TimeSeriesDataSet`
