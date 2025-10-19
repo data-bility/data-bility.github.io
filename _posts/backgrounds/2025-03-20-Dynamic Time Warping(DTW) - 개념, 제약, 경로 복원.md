@@ -90,3 +90,62 @@ $$
 3. $(1,1)$ 에 도달할 때까지 반복
 
 이 과정을 통해 두 시계열이 **어떤 시점끼리 매칭되었는지**를 알 수 있습니다.
+
+---
+
+## 5. 구현와 예시
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+ 
+def dtw_distance_and_path(A, B):
+    """
+    두 시계열 A, B의 DTW 거리와 워핑 경로를 계산하는 함수.
+    A와 B의 각 요소 간의 절대 차이를 비용으로 하여 DP 테이블을 채운 후,
+    최종 누적 비용과 최적의 워핑 경로를 반환합니다.
+    """
+    n, m = len(A), len(B)
+    dp = np.full((n+1, m+1), np.inf)
+    dp[0, 0] = 0
+    # DP 테이블 채우기
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            cost = abs(A[i-1] - B[j-1])
+            dp[i, j] = cost + min(dp[i-1, j], dp[i, j-1], dp[i-1, j-1])
+     
+    dist = dp[n, m]
+    # Backtracking: 최적 경로를 역추적 (0-based 인덱스로 반환)
+    path = []
+    i, j = n, m
+    while i > 0 and j > 0:
+        path.append((i-1, j-1))
+        # 세 방향 중 최소 비용을 선택
+        neighbors = [dp[i-1, j], dp[i, j-1], dp[i-1, j-1]]
+        move = np.argmin(neighbors)
+        if move == 0:
+            i -= 1
+        elif move == 1:
+            j -= 1
+        else:
+            i -= 1
+            j -= 1
+    path.reverse()
+    return dist, dp, path
+ 
+# 예시 데이터 생성
+# A: 짧은 시계열 (길이 50), 사인파
+t_A = np.linspace(0, 2*np.pi, 10)
+A = np.sin(t_A)
+ 
+# B: 긴 시계열 (길이 70), 사인파에 약간의 왜곡 추가 (시간 축이 늘어난 느낌)
+t_B = np.linspace(0, 2*np.pi, 20)
+B = np.sin(t_B + 0.3*np.sin(t_B))
+ 
+# DTW 계산: 두 시계열 간의 유사도 및 워핑 경로 구하기
+dist, dp, path = dtw_distance_and_path(A, B)
+```
+
+시각화 예시는 다음과 같다 :
+
+<img src="/assets/img/DTW example_background.png" width="740px" height="250px" alt="dtw example_background">
