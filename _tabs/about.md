@@ -109,7 +109,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 
 ---
 
-### 6. [가격 최적화 모델 (CausalForestDML)](https://data-bility.github.io/posts/price-optimization-dml/)
+### 6. 가격 최적화 모델 (CausalForestDML)
 - **설명:** CausalForestDML 기반 가격탄력성 추정 및 수익최대화 시뮬레이션
 - **성과:**
   - 현재 개선작업 진행중
