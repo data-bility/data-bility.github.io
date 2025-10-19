@@ -91,6 +91,8 @@ coef_df = pd.DataFrame({
 coef_df
 
 ```
+
+
 | Feature       | True beta | OLS beta   | NNLS beta (>=0) |
 | ------------- |-----------|------------|-----------------|
 | X1_price      | 0.5       | 0.457      | 0.201           |
