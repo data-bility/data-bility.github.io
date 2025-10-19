@@ -47,43 +47,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 
 ## 주요 프로젝트
 
-### 1. [자동화물류센터 수요예측 고도화 - Poisson XGB, TFT 모델](https://data-bility.github.io/posts/%EC%9E%90%EB%8F%99%ED%99%94%EB%AC%BC%EB%A5%98%EC%84%BC%ED%84%B0-%EC%88%98%EC%9A%94%EC%98%88%EC%B8%A1-%EA%B3%A0%EB%8F%84%ED%99%94-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Poisson-XGB,-TFT-%EB%AA%A8%EB%8D%B8-%EB%8F%84%EC%9E%85/)
-- **설명:** NE.O.004 자동화센터 오픈 초기 데이터 부족 상황에서 ML 예측체계로 전환
-- **기술:** XGBoost(`count:poisson`), TFT(Temporal Fusion Transformer), PySpark
-- **성과:**
-  - 주차별 nRMSE **-18% 개선**, MAPE **-14% 개선**
-  - 기존 Croston 대비 cold-start SKU 커버리지 **+25% 확대**
-  - Poisson objective 기반으로 **과소예측 문제 개선**
-
----
-
-### 2. [주간 워크 포워드 최적화 기반 파라미터 동적 재보정](https://data-bility.github.io/posts/Croston-method-%EC%A3%BC%EA%B0%84-%EC%9B%8C%ED%81%AC-%ED%8F%AC%EC%9B%8C%EB%93%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EB%B0%98-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EB%8F%99%EC%A0%81-%EC%9E%AC%EB%B3%B4%EC%A0%95/)
-- **설명:** Croston method의 smoothing parameter(α)를 주간 사후평가 기반으로 동적 조정
-- **성과:**
-  - α=0.3 고정 방식 대비 예측오차(MAPE) **-12% 개선**
-  - 신규 점포 초기 8주차 이내 안정화
-
----
-
-### 3. [SSG 1DAY 배송서비스 자동발주예측 ML모델 고도화](https://data-bility.github.io/posts/SSG-1DAY-%EB%B0%B0%EC%86%A1-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC%EC%98%88%EC%B8%A1-ML%EB%AA%A8%EB%8D%B8-%EA%B3%A0%EB%8F%84%ED%99%94/)
-- **설명:** Ray cluster 기반 영업점/SKU 단위 ML 학습 및 예측 파이프라인 구축
-- **기술:** Ray, XGBoost, LightGBM, Ridge/Lasso, Airflow, PySpark
-- **성과:**
-  - 이동평균 대비 RMSE **-21%**, SMAPE **-15%** 개선
-  - Bayesian Optimization 기반 모델 선택 자동화
-
----
-
-### 4. [입하 CAPA 기반 취소우선순위 ML모델](https://data-bility.github.io/posts/%EC%9E%85%ED%95%98-CAPA%EB%A5%BC-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC-%EC%B7%A8%EC%86%8C-%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-Rank-%EB%AA%A8%EB%8D%B8-%EA%B0%9C%EB%B0%9C/)
-- **설명:** 자동화센터 CAPA 초과 시 취소우선순위 결정 모델 개발
-- **기술:** Ray, NNLS, Scala, PySpark
-- **성과:**
-  - NNLS(Non-Negative LinearRegression) 기반 해석 가능성 확보
-  - 자동발주로 인한 품절율 **-2.5% 감소(개선)**
-
----
-
-### 5. 품절상품 분류 및 워크포워드 기반 Cut-off 최적화 로직 개발
+### 1. 품절상품 분류 및 워크포워드 기반 Cut-off 최적화 로직 개발
 > **목적:** 품절 발생 확률 조기 예측 및 주간별 threshold 자동 보정 로직 구축
 
 #### ① [주간 품절상품 분류 모델 개발](https://data-bility.github.io/posts/%EC%A3%BC%EA%B0%84-%ED%92%88%EC%A0%88%EC%83%81%ED%92%88-%EB%B6%84%EB%A5%98-%EB%AA%A8%EB%8D%B8-%EA%B0%9C%EB%B0%9C%EA%B8%B0/)
@@ -108,8 +72,65 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 
 ---
 
+### 2. [자동화물류센터 수요예측 고도화 - Poisson XGB, TFT 모델](https://data-bility.github.io/posts/%EC%9E%90%EB%8F%99%ED%99%94%EB%AC%BC%EB%A5%98%EC%84%BC%ED%84%B0-%EC%88%98%EC%9A%94%EC%98%88%EC%B8%A1-%EA%B3%A0%EB%8F%84%ED%99%94-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Poisson-XGB,-TFT-%EB%AA%A8%EB%8D%B8-%EB%8F%84%EC%9E%85/)
+- **설명:** NE.O.004 자동화센터 오픈 초기 데이터 부족 상황에서 ML 예측체계로 전환
+- **기술:** XGBoost(`count:poisson`), TFT(Temporal Fusion Transformer), PySpark
+- **성과:**
+  - 주차별 nRMSE **-18% 개선**, MAPE **-14% 개선**
+  - 기존 Croston 대비 cold-start SKU 커버리지 **+25% 확대**
+  - Poisson objective 기반으로 **과소예측 문제 개선**
+
+---
+
+### 3. [입하 CAPA 기반 취소우선순위 ML모델](https://data-bility.github.io/posts/%EC%9E%85%ED%95%98-CAPA%EB%A5%BC-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC-%EC%B7%A8%EC%86%8C-%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-Rank-%EB%AA%A8%EB%8D%B8-%EA%B0%9C%EB%B0%9C/)
+- **설명:** 자동화센터 CAPA 초과 시 취소우선순위 결정 모델 개발
+- **기술:** Ray, NNLS, Scala, PySpark
+- **성과:**
+  - NNLS(Non-Negative LinearRegression) 기반 해석 가능성 확보
+  - 자동발주로 인한 품절율 **-2.5% 감소(개선)**
+
+---
+
+### 4. [주간 워크 포워드 최적화 기반 파라미터 동적 재보정](https://data-bility.github.io/posts/Croston-method-%EC%A3%BC%EA%B0%84-%EC%9B%8C%ED%81%AC-%ED%8F%AC%EC%9B%8C%EB%93%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EB%B0%98-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EB%8F%99%EC%A0%81-%EC%9E%AC%EB%B3%B4%EC%A0%95/)
+- **설명:** Croston method의 smoothing parameter(α)를 주간 사후평가 기반으로 동적 조정
+- **성과:**
+  - α=0.3 고정 방식 대비 예측오차(MAPE) **-12% 개선**
+  - 신규 점포 초기 8주차 이내 안정화
+
+---
+
+### 5. [SSG 1DAY 배송서비스 자동발주예측 ML모델 고도화](https://data-bility.github.io/posts/SSG-1DAY-%EB%B0%B0%EC%86%A1-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC%EC%98%88%EC%B8%A1-ML%EB%AA%A8%EB%8D%B8-%EA%B3%A0%EB%8F%84%ED%99%94/)
+- **설명:** Ray cluster 기반 영업점/SKU 단위 ML 학습 및 예측 파이프라인 구축
+- **기술:** Ray, XGBoost, LightGBM, Ridge/Lasso, Airflow, PySpark
+- **성과:**
+  - 이동평균 대비 RMSE **-21%**, SMAPE **-15%** 개선
+  - Bayesian Optimization 기반 모델 선택 자동화
+
+
+---
+
 ### 6. [가격 최적화 모델 (CausalForestDML)](https://data-bility.github.io/posts/price-optimization-dml/)
 - **설명:** CausalForestDML 기반 가격탄력성 추정 및 수익최대화 시뮬레이션
 - **성과:**
-  - SKU별 최적 할인율 도출 정확도 **MAE 0.07 이하**
-  - Ray 기반 병렬추론으로 일별 40만건 이상 처리
+  - 현재 개선작업 진행중
+  - [Double Machine Learning (DML) — 인과추론과 머신러닝의 경계 위에서](https://data-bility.github.io/posts/DML-%EA%B0%9C%EB%85%90/)
+
+---
+
+# 연구 및 교육사항
+## 출판물
+* Donghee Kim, Daehyun Jin, Changki Kim, Hyun-Goo Kim, & Yung-Seop Lee (2021-11-10). Model Development of Solar Radiation Model Output Statistics based on Satellite Data and UM-LDAPS Data. 한국태양에너지학회 학술대회논문집, 전남. [(Link)](https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11199744)
+* Yung-Seop Lee, Daehyun Jin, Donghee Kim, Chang Ki Kim, & Hyun-Goo Kim (2021-07-13). A Comparison of Several Time Series Models for Day-ahead Solar Power Generation Forecasting. 한국신·재생에너지학회 학술대회 초록집, 전남. [(Link)](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10591841)
+* Dae-Hyun Jin, Sung-Hwan Jang, Hee-Kyung Kim, & Yung-Seop Lee (2021). A trend analysis of seasonal average temperatures over 40 years in South Korea using Mann-Kendall test and sen’s slope. 응용통계연구, 34(3), 439-447. [(Link)](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11406051)
+
+## 교육사항
+* SnowFlake Fundamentals, 2025.08
+
+### 동국대학교 일반대학원(서울)
+* 2020.03 ~ 2022.02
+* 통계학 석사
+* 주요 연구 분야 : 데이터 마이닝, 경향성 분석
+
+### 동국대학교(서울)
+* 2011.03 ~ 2018.02
+* 산업시스템공학, 통계학 복수전공
