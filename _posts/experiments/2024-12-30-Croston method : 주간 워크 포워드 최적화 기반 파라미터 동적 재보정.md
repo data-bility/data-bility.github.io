@@ -8,7 +8,9 @@ math: true
 > - 두 센터 모두 간헐(intermittent)한 수요 특성이 강하여, Croston method의 지수평활계수 $ \alpha $를 **주간 단위 사후평가 기반으로 동적으로 재보정**하는 접근을 통해 안정적인 기초예측 성능을 확보했습니다.
 > - Croston 기법 자체의 수식과 원리는 이전 글을 참고하세요: [Croston method: 간헐적 수요 예측을 위한 고전적 접근방법](https://data-bility.github.io/posts/Croston-method-%EA%B0%84%ED%97%90%EC%A0%81-%EC%88%98%EC%9A%94-%EC%98%88%EC%B8%A1%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B3%A0%EC%A0%84%EC%A0%81-%EC%A0%91%EA%B7%BC%EB%B0%A9%EB%B2%95/)
 > - Demand Categorization에 대해서는 이전 글을 참고하세요: [ADI, CV-squared를 이용한 Demand Categorization](https://data-bility.github.io/posts/ADI,-CV-squared%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Demand-Categorization/)
+
 ---
+
 ## 1. 프로젝트 개요
 
 | 구분 | NE.O.004 자동화물류센터     | 이마트 PP센터                            |
@@ -20,6 +22,7 @@ math: true
 | **결과 요약** | 신규 센터 자동발주 안정화       | 과소예측 6% 감소(개선), 자동발주 비중 2.5% 향상(개선) |
 
 ---
+
 ## 2. 수요 패턴 및 기초예측 후보
 
 ### 2.1 수요 패턴 특성
@@ -71,7 +74,7 @@ math: true
 
 > 이 규칙은 **월요일 = 생성 기준일**을 기준으로 삼아, **지난 주(또는 정의한 고정 리드타임 오프셋)** 의 예측값과 실제를 맞춰 보는 순수 **사후 평가** 방식입니다.
 
-### 3.3 `기초모형 주간 사후 평가` 의사코드 (지표 산출 + alpha 선택)
+### 3.3 기초모형 주간 사후 평가 의사코드 (지표 산출 + alpha 선택)
 
 ```text
 # INPUT
