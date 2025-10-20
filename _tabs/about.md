@@ -53,22 +53,21 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 #### ① [주간 품절상품 분류 모델 개발](https://data-bility.github.io/posts/%EC%A3%BC%EA%B0%84-%ED%92%88%EC%A0%88%EC%83%81%ED%92%88-%EB%B6%84%EB%A5%98-%EB%AA%A8%EB%8D%B8-%EA%B0%9C%EB%B0%9C%EA%B8%B0/)
 - **설명:**  
   주간 단위로 발생하는 품절상품(Abst 상품)의 특성을 분류하고, `abst_signal`을 생성해 품절 발생 가능성을 조기 탐지하는 ML 모델을 개발했습니다. <br>
-  주차별 품절 발생 패턴과 재고 소진 속도를 feature로 통합해 품절 전조(early-signal)를 정량화했습니다.
+  주차별 품절 발생 패턴과 재고 소진 속도를 feature로 통합, 정량화했으며 품절상품을 조기 탐지합니다. 
 - **기술:** PySpark, LightGBM
 - **성과:**
-  - F1-score **+11%p**, Precision **+9%p**, Recall **+12%p** 개선
-  - 품절 조기 탐지 정확도 향상 및 오탐율(False Positive) 감소
-  - `abst_signal` 누적값을 feature로 활용해 **다음 주 품절 가능성 예측 정확도 향상**
+  - 평균 Precision 약 0.65 / F1-score 약 0.46
+  - 수요예측 프로덕트에 품절상품 조기 탐지 기능을 탑재 
 
 #### ② [워크포워드 최적화 기반 절대·상대 혼합 Cut-off 로직 개발](https://data-bility.github.io/posts/%EC%9B%8C%ED%81%AC-%ED%8F%AC%EC%9B%8C%EB%93%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EB%B0%98-%EC%A0%88%EB%8C%80,-%EC%83%81%EB%8C%80-%ED%98%BC%ED%95%A9-%EB%B6%84%EB%A5%98-Cut-off-%EB%A1%9C%EC%A7%81-%EA%B0%9C%EB%B0%9C/)
 - **설명:**  
-  품절 분류 결과를 활용해 **절대값 기준(oper_cnt, dd_inv_dcnt)** 과 **상대 기준(abst_signal 비율)** 을 결합한 cut-off를 정의하고, 주간 검증 데이터를 이용해 워크포워드 방식으로 자동 보정했습니다. <br>
+  품절 분류 결과를 활용해 **절대값 cut-off** 와 **상대적 cut-off** 을 결합한 cut-off를 정의하고, 주간 검증 데이터를 이용해 워크포워드 방식으로 자동 보정했습니다. <br>
   이를 통해 threshold drift 문제를 해결하고, 품절 탐지의 민감도(sensitivity)와 안정성 간 균형을 확보했습니다.
 - **기술:** PySpark, SparkSQL, Weekly Rolling Validation Framework
 - **성과:**
   - Cut-off 자동 보정으로 **운영 실적 대비 예측 안정성 향상**
   - threshold 고정 대비 recall 변동폭 **-35% → ±10%** 수준으로 안정화
-  - 자동발주 품목의 품절 탐지 precision **+7%p** 개선
+  - (WIP) 조기 탐지된 품정상품에 대해 수요예측값을 상향하는 정책을 검토중 
 
 ---
 
@@ -76,8 +75,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 - **설명:** NE.O.004 자동화센터 오픈 초기 데이터 부족 상황에서 ML 예측체계로 전환
 - **기술:** XGBoost(`count:poisson`), TFT(Temporal Fusion Transformer), PySpark
 - **성과:**
-  - 주차별 nRMSE **-18% 개선**, MAPE **-14% 개선**
-  - 기존 Croston 대비 cold-start SKU 커버리지 **+25% 확대**
+  - 주차별 RMSE **약 -12.8% 개선**, MAPE **약 -9.4% 개선**
   - Poisson objective 기반으로 **과소예측 문제 개선**
 
 ---
@@ -87,7 +85,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 - **기술:** Ray, NNLS, Scala, PySpark
 - **성과:**
   - NNLS(Non-Negative LinearRegression) 기반 해석 가능성 확보
-  - 자동발주로 인한 품절율 **-2.5% 감소(개선)**
+  - 수요예측 프로덕트에 자동발주 취소우선순위 기능 및 대시보드 탑재
 
 ---
 
@@ -101,7 +99,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 
 ### 5. [SSG 1DAY 배송서비스 자동발주예측 ML모델 고도화](https://data-bility.github.io/posts/SSG-1DAY-%EB%B0%B0%EC%86%A1-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC%EC%98%88%EC%B8%A1-ML%EB%AA%A8%EB%8D%B8-%EA%B3%A0%EB%8F%84%ED%99%94/)
 - **설명:** Ray cluster 기반 영업점/SKU 단위 ML 학습 및 예측 파이프라인 구축
-- **기술:** Ray, XGBoost, LightGBM, Ridge/Lasso, Airflow, PySpark
+- **기술:** Ray, XGBoost, LightGBM, Ridge/Lasso/ElasticNet, Airflow, PySpark
 - **성과:**
   - 이동평균 대비 RMSE **-21%**, SMAPE **-15%** 개선
   - Bayesian Optimization 기반 모델 선택 자동화
@@ -112,7 +110,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 ### 6. 가격 최적화 모델 (CausalForestDML)
 - **설명:** CausalForestDML 기반 가격탄력성 추정 및 수익최대화 시뮬레이션
 - **성과:**
-  - 현재 개선작업 진행중
+  - (WIP) 모델 학습/예측 결과의 설명가능성을 위한 개선 작업, 그래프 모델 구조 개선 작업 진행중
   - [Double Machine Learning (DML) — 인과추론과 머신러닝의 경계 위에서](https://data-bility.github.io/posts/DML-%EA%B0%9C%EB%85%90/)
 
 ---
