@@ -148,7 +148,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 * Dae-Hyun Jin, Sung-Hwan Jang, Hee-Kyung Kim, & Yung-Seop Lee (2021). A trend analysis of seasonal average temperatures over 40 years in South Korea using Mann-Kendall test and sen’s slope. 응용통계연구, 34(3), 439-447. [(Link)](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11406051)
 
 ## 교육사항
-* SnowFlake Fundamentals, 2025.08
+* SnowFlake Fundamentals, 2025.08 : [Link](https://data-bility.github.io/posts/SnowFlake-Fundamentals/)
 
 ### 동국대학교 일반대학원(서울)
 * 2020.03 ~ 2022.02
