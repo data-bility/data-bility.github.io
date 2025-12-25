@@ -25,7 +25,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 | 2024.05 ~ 현재 | SSG.COM D/I 본부               | Developer Relations |
 
 - PySpark, Scala 기반 수요예측 파이프라인 개발
-- XGBoost, LightGBM, Ridge/Lasso/ElasticNet, TFT, DML 모델 활용
+- TabPFN, TFT, DML, XGBoost, LightGBM, Ridge/Lasso/ElasticNet 활용 모델링
 - Croston/Poisson 등 간헐 수요 통계모형 연구 및 ML 전환
 - Mesos, Ray 병렬추론 기반 CausalForestDML 가격탄력성 추정
 - Airflow 기반 주간 학습 및 일간 예측 자동화 파이프라인 구축
@@ -100,7 +100,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 ---
 
 ### 3. [입하 CAPA 기반 취소우선순위 ML모델](https://data-bility.github.io/posts/%EC%9E%85%ED%95%98-CAPA%EB%A5%BC-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC-%EC%B7%A8%EC%86%8C-%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-Rank-%EB%AA%A8%EB%8D%B8-%EA%B0%9C%EB%B0%9C/)
-> 2025.01 ~ 2025.03 / 개발 1명, 기여도 100% <br>
+> 2025.01 ~ 2025.02 / 개발 1명, 기여도 100% <br>
 > **목적:** 입하 취소의 수리적 타당성, 로직의 해석가능성 확보
 - **기술:** Ray, NNLS, Scala, PySpark
 - **성과:**
@@ -111,19 +111,24 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 ---
 
 ### 4. [주간 워크 포워드 최적화 기반 파라미터 동적 재보정](https://data-bility.github.io/posts/Croston-method-%EC%A3%BC%EA%B0%84-%EC%9B%8C%ED%81%AC-%ED%8F%AC%EC%9B%8C%EB%93%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EB%B0%98-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EB%8F%99%EC%A0%81-%EC%9E%AC%EB%B3%B4%EC%A0%95/)
-- **설명:** Croston method의 smoothing parameter(α)를 주간 사후평가 기반으로 동적 조정
-- **성과:**
+> 2024.09 ~ 2024.10 / 개발 1명, 기여도 100% <br>
+> **목적:** 통계적 모델의 고도화
+- **기술:** Python, Pyspark, Airflow, Scala
+- **성과**
   - α=0.3 고정 방식 대비 예측오차(MAPE) **-12% 개선**
   - 신규 점포 초기 8주차 이내 안정화
+- **설명:** Croston method의 smoothing parameter(α)를 주간 사후평가 기반으로 동적 조정
 
 ---
 
 ### 5. [SSG 1DAY 배송서비스 자동발주예측 ML모델 고도화](https://data-bility.github.io/posts/SSG-1DAY-%EB%B0%B0%EC%86%A1-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC%EC%98%88%EC%B8%A1-ML%EB%AA%A8%EB%8D%B8-%EA%B3%A0%EB%8F%84%ED%99%94/)
-- **설명:** Ray cluster 기반 영업점/SKU 단위 ML 학습 및 예측 파이프라인 구축
+> 2024.05 ~ 2024.07 / 개발 1명, 기여도 100% <br> 
+> **목적:** 배송 서비스 유형 특화 ML 모델 도입, 고도화
 - **기술:** Ray, XGBoost, LightGBM, Ridge/Lasso/ElasticNet, Airflow, PySpark
-- **성과:**
+- **성과**
   - 이동평균 대비 RMSE **-21%**, SMAPE **-15%** 개선
   - Bayesian Optimization 기반 모델 선택 자동화
+- **설명:** Ray cluster 기반 영업점/SKU 단위 ML 학습 및 예측 파이프라인 구축
 
 
 ---
