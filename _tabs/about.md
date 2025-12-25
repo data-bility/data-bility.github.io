@@ -47,45 +47,66 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 
 ## 주요 프로젝트
 
+### (WIP) 행사·할인 반응을 반영한 단기 수요예측 모델 고도화 (TabPFN 도입)
+> 2025.11 ~ 현재 / 개발 1명, 기여도 100% <br>
+> **목적:** 행사·할인 구간에서 급변하는 수요를 기존 통계/트리 기반 모델 대비 예측 성능 향상, zero-inflated SKU의 단기 예측 성능 개선
+
+#### ① TabPFN 기반 이벤트 민감형 수요예측 모델 실험
+- **기술:** PySpark, Python, TabPFN, Ray(GPU Inference)
+- **성과**
+  - 현재 개발 진행중인 Baseline 모델에서, 행사 구간 RMSE/MAE 기준 기존 모델 대비 점포 별 약 5~20% 개선
+  - 고가·고변동 SKU에서 수요 급등 구간 추종 성능 향상
+  - 기존 수요예측 파이프라인에 보조 예측 모델(ensemble 후보) 로 통합 가능성 검증
+- **설명:** <br>
+  SKU 단위 수요 데이터의 0 다빈도(zero-inflated) 및 행사·할인 시 급격한 분포 변화 문제를 해결하기 위해 TabPFN을 도입했습니다.
+  Spark에서 생성한 할인(dcrt)·이벤트·캘린더 기반 피처를 활용해, 학습 데이터 내 유사 패턴을 조건부(in-context)로 참조하는 방식으로 단기 수요 반응을 직접 추론하도록 설계했습니다.
+  특히 행사 전·중·후 구간에서 기존 OPS/GBDT 모델 대비 예측 지연 및 과소예측 문제를 완화하는 데 초점을 두었습니다.
+
 ### 1. 품절상품 분류 및 워크포워드 기반 Cut-off 최적화 로직 개발
+> 2025.06 ~ 2025.09 / 개발 1명, 기여도 100% <br>
 > **목적:** 품절 발생 확률 조기 예측 및 주간별 threshold 자동 보정 로직 구축
 
 #### ① [주간 품절상품 분류 모델 개발](https://data-bility.github.io/posts/%EC%A3%BC%EA%B0%84-%ED%92%88%EC%A0%88%EC%83%81%ED%92%88-%EB%B6%84%EB%A5%98-%EB%AA%A8%EB%8D%B8-%EA%B0%9C%EB%B0%9C%EA%B8%B0/)
+- **기술:** PySpark, LightGBM
+- **성과**
+  - 평균 Precision 약 0.65 / F1-score 약 0.46
+  - 수요예측 프로덕트에 품절상품 조기 탐지 기능을 탑재
 - **설명:**  
   주간 단위로 발생하는 품절상품(Abst 상품)의 특성을 분류하고, `abst_signal`을 생성해 품절 발생 가능성을 조기 탐지하는 ML 모델을 개발했습니다. <br>
-  주차별 품절 발생 패턴과 재고 소진 속도를 feature로 통합, 정량화했으며 품절상품을 조기 탐지합니다. 
-- **기술:** PySpark, LightGBM
-- **성과:**
-  - 평균 Precision 약 0.65 / F1-score 약 0.46
-  - 수요예측 프로덕트에 품절상품 조기 탐지 기능을 탑재 
+  주차별 품절 발생 패턴과 재고 소진 속도를 feature로 통합, 정량화했으며 품절상품을 조기 탐지합니다.
 
 #### ② [워크포워드 최적화 기반 절대·상대 혼합 Cut-off 로직 개발](https://data-bility.github.io/posts/%EC%9B%8C%ED%81%AC-%ED%8F%AC%EC%9B%8C%EB%93%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EB%B0%98-%EC%A0%88%EB%8C%80,-%EC%83%81%EB%8C%80-%ED%98%BC%ED%95%A9-%EB%B6%84%EB%A5%98-Cut-off-%EB%A1%9C%EC%A7%81-%EA%B0%9C%EB%B0%9C/)
-- **설명:**  
-  품절 분류 결과를 활용해 **절대값 cut-off** 와 **상대적 cut-off** 을 결합한 cut-off를 정의하고, 주간 검증 데이터를 이용해 워크포워드 방식으로 자동 보정했습니다. <br>
-  이를 통해 threshold drift 문제를 해결하고, 품절 탐지의 민감도(sensitivity)와 안정성 간 균형을 확보했습니다.
 - **기술:** PySpark, SparkSQL, Weekly Rolling Validation Framework
 - **성과:**
   - Cut-off 자동 보정으로 **운영 실적 대비 예측 안정성 향상**
   - threshold 고정 대비 recall 변동폭 **-35% → ±10%** 수준으로 안정화
-  - (WIP) 조기 탐지된 품정상품에 대해 수요예측값을 상향하는 정책을 검토중 
+  - 조기 탐지된 품절상품에 대해 Quantile Regression 모델 접목하여 예측 수준 상향
+- **설명:**  
+  품절 분류 결과를 활용해 **절대값 cut-off** 와 **상대적 cut-off** 을 결합한 cut-off를 정의하고, 주간 검증 데이터를 이용해 워크포워드 방식으로 자동 보정했습니다. <br>
+  이를 통해 threshold drift 문제를 해결하고, 품절 탐지의 민감도(sensitivity)와 안정성 간 균형을 확보했습니다. 
 
 ---
 
 ### 2. [자동화물류센터 수요예측 고도화 - Poisson XGB, TFT 모델](https://data-bility.github.io/posts/%EC%9E%90%EB%8F%99%ED%99%94%EB%AC%BC%EB%A5%98%EC%84%BC%ED%84%B0-%EC%88%98%EC%9A%94%EC%98%88%EC%B8%A1-%EA%B3%A0%EB%8F%84%ED%99%94-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Poisson-XGB,-TFT-%EB%AA%A8%EB%8D%B8-%EB%8F%84%EC%9E%85/)
-- **설명:** NE.O.004 자동화센터 오픈 초기 데이터 부족 상황에서 ML 예측체계로 전환
+> 2025.03 ~ 2025.06 / 개발 1명, 기여도 100% <br>
+> **목적:** 통계적 모델에서 ML 예측체계로 전환, 데이터 부족 문제 해결
+
 - **기술:** XGBoost(`count:poisson`), TFT(Temporal Fusion Transformer), PySpark
 - **성과:**
   - 주차별 RMSE **약 -12.8% 개선**, MAPE **약 -9.4% 개선**
   - Poisson objective 기반으로 **과소예측 문제 개선**
+- **설명:** NE.O.004 자동화센터 오픈 초기 데이터 부족 상황에서 ML 예측체계로 전환
 
 ---
 
 ### 3. [입하 CAPA 기반 취소우선순위 ML모델](https://data-bility.github.io/posts/%EC%9E%85%ED%95%98-CAPA%EB%A5%BC-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EC%9E%90%EB%8F%99%EB%B0%9C%EC%A3%BC-%EC%B7%A8%EC%86%8C-%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-Rank-%EB%AA%A8%EB%8D%B8-%EA%B0%9C%EB%B0%9C/)
-- **설명:** 자동화센터 CAPA 초과 시 취소우선순위 결정 모델 개발
+> 2025.01 ~ 2025.03 / 개발 1명, 기여도 100% <br>
+> **목적:** 입하 취소의 수리적 타당성, 로직의 해석가능성 확보
 - **기술:** Ray, NNLS, Scala, PySpark
 - **성과:**
-  - NNLS(Non-Negative LinearRegression) 기반 해석 가능성 확보
+  - NNLS regression (Non-Negative Least-Squares regression) 기반 해석 가능성 확보
   - 수요예측 프로덕트에 자동발주 취소우선순위 기능 및 대시보드 탑재
+- **설명:** 자동화센터 CAPA 초과 시 취소우선순위 결정 모델 개발
 
 ---
 
