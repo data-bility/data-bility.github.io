@@ -51,7 +51,7 @@ D/I 본부 Devleoper Reltaions을 겸하고 있습니다. <br>
 > 2025.11 ~ 현재 / 개발 1명, 기여도 100% <br>
 > **목적:** 행사·할인 구간에서 급변하는 수요를 기존 통계/트리 기반 모델 대비 예측 성능 향상, zero-inflated SKU의 단기 예측 성능 개선
 
-#### ① TabPFN 기반 이벤트 민감형 수요예측 모델 실험
+#### ① Pre-trained model 기반 수요예측 베이스라인 모델 개발, 이벤트 민감형 모델 PoC
 - **기술:** PySpark, Python, Ray(GPU Inference)
 - **성과**
   - 현재 개발된 Baseline 모델에서, 평시 구간 RMSE/MAE 기준 기존 모델 대비 점포 별 약 5~20% 개선
